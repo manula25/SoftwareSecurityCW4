@@ -1,0 +1,11 @@
+{
+    "name": "asus/ss",
+    "autoload": {
+        "psr-4": {
+            "Asus\\Ss\\": "src/"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^4.3"
+    }
+}
