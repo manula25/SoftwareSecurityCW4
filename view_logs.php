@@ -1,4 +1,4 @@
-<?php
+<?php 
 require './src/db/connection.php';
 session_start();
 
@@ -9,7 +9,13 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] !== 1) {
     exit();
 }
 
-$pdo = getDBConnection();
+try {
+    // Connect to the database
+    $pdo = getDBConnection();
+} catch (PDOException $e) {
+    echo 'Connection failed: ' . $e->getMessage();
+    exit();
+}
 
 // Fetch all logs
 $stmt = $pdo->query('SELECT user_logs.id, users.username, user_logs.action, user_logs.timestamp 
@@ -24,21 +30,60 @@ $logs = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Logs</title>
+    <title>Secure PHP Authentication | View Logs</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Background gradient animation */
         body {
-            background: linear-gradient(to right, #0f0f0f, #3B82F6);
-            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #2c3e50, #2980b9, #8e44ad, #f39c12);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Element animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .shine {
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            background-size: 200%;
+            animation: shine 3s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% { background-position: -200%; }
+            50% { background-position: 200%; }
+            100% { background-position: -200%; }
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800">
-    <div class="container mx-auto p-8 bg-gray-800 rounded-xl shadow-lg">
-        <h2 class="text-4xl text-center text-white font-semibold mb-8">System Logs</h2>
+<body class="min-h-screen flex items-center justify-center p-4">
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-gray-900 text-white rounded-lg shadow-lg">
+    <div class="w-full max-w-5xl p-6 bg-gray-900 bg-opacity-80 rounded-2xl shadow-2xl backdrop-blur-lg border border-gray-700 fade-in">
+        <!-- Header with Title -->
+        <h1 class="text-4xl font-extrabold text-center text-yellow-400 mb-8 shine">System Logs</h1>
+
+        <!-- Logs Table -->
+        <div class="overflow-x-auto mb-8 fade-in" style="animation-delay: 0.2s;">
+            <table class="min-w-full bg-gray-800 text-white rounded-lg shadow-lg">
                 <thead>
                     <tr class="bg-blue-600 text-left text-sm uppercase font-medium">
                         <th class="py-3 px-6">Username</th>
@@ -48,7 +93,7 @@ $logs = $stmt->fetchAll();
                 </thead>
                 <tbody>
                     <?php foreach ($logs as $log): ?>
-                        <tr class="border-b border-gray-700 hover:bg-gray-700">
+                        <tr class="border-b border-gray-700 hover:bg-gray-600 transition ease-in-out duration-300">
                             <td class="py-4 px-6"><?php echo htmlspecialchars($log['username']); ?></td>
                             <td class="py-4 px-6"><?php echo htmlspecialchars($log['action']); ?></td>
                             <td class="py-4 px-6"><?php echo htmlspecialchars($log['timestamp']); ?></td>
@@ -58,6 +103,7 @@ $logs = $stmt->fetchAll();
             </table>
         </div>
 
+        <!-- Back to Admin Dashboard Link -->
         <div class="mt-6 text-center">
             <a href="./dashboard.php" class="text-blue-400 hover:text-blue-300 transition duration-200">Back to Admin Dashboard</a>
         </div>

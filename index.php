@@ -54,7 +54,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
         /* Animated background with image */
         body {
-            background: url('path/to/your-image.jpg') no-repeat center center fixed;
+            background: url('photos/ind.jpg') no-repeat center center fixed;
             background-size: cover;
             animation: gradientBG 15s ease infinite;
         }
@@ -72,33 +72,33 @@ $isLoggedIn = isset($_SESSION['user_id']);
         }
     </style>
 </head>
-<body class="min-h-screen text-white flex items-center justify-center p-4">
-    <div class="w-full max-w-md p-6 bg-gray-800 bg-opacity-90 rounded-2xl shadow-2xl backdrop-filter backdrop-blur-lg border border-gray-600">
-        <!-- Header with Title (removed arrow) -->
+<body  class="min-h-screen text-white flex items-center justify-center p-4">
+    <div class="w-full max-w-md p-6 bg-dark bg-opacity-90 rounded-2xl shadow-2xl backdrop-filter backdrop-blur-lg border border-secondary">
+        <!-- Header with Title -->
         <div class="flex items-center justify-center mb-6">
-            <h1 class="text-4xl font-extrabold text-center text-yellow-400 shine">Secure PHP Authentication</h1>
+            <h1 class="text-4xl font-extrabold text-center text-warning shine">Secure PHP Authentication</h1>
         </div>
 
         <?php if ($isLoggedIn): ?>
             <!-- Content for logged-in users -->
-            <p class="text-lg text-center mb-4">Hello, <span class="font-semibold"><?php echo htmlspecialchars($_SESSION['username']); ?></span>!</p>
+            <p class="text-lg text-center mb-4">Hello, <span class="font-semibold text-primary"><?php echo htmlspecialchars($_SESSION['username']); ?></span>!</p>
             <div class="mt-4 flex justify-center space-x-4">
-                <a href="./src/auth/logout.php" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-full shadow-md transform hover:scale-105 transition duration-300 hover-pulse">Logout</a>
+                <a href="./src/auth/logout.php" class="px-4 py-2 bg-danger hover:bg-danger-dark text-white rounded-full shadow-md transform hover:scale-105 transition duration-300 hover-pulse">Logout</a>
 
                 <?php if ($_SESSION['role_id'] == 1): ?>
                     <!-- Admin dashboard -->
-                    <a href="./dashboard.php" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-md transform hover:scale-105 transition duration-300 shine hover-pulse">Go to Admin Dashboard</a>
+                    <a href="./dashboard.php" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full shadow-md transform hover:scale-105 transition duration-300 shine hover-pulse">Go to Admin Dashboard</a>
                 <?php else: ?>
                     <!-- User dashboard -->
-                    <a href="./my_dashboard.php" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-md transform hover:scale-105 transition duration-300 shine hover-pulse">Go to User Dashboard</a>
+                    <a href="./my_dashboard.php" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full shadow-md transform hover:scale-105 transition duration-300 shine hover-pulse">Go to User Dashboard</a>
                 <?php endif; ?>
             </div>
         <?php else: ?>
             <!-- Content for guests -->
             <p class="text-center text-gray-300 mb-4">Please login or register to continue.</p>
             <div class="flex flex-col space-y-4">
-                <a href="./login.php" class="px-4 py-3 bg-green-600 hover:bg-green-700 text-white rounded-full text-center shadow-md transform hover:scale-105 transition duration-300 shine hover-pulse">Login</a>
-                <a href="./register.php" class="px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-center shadow-md transform hover:scale-105 transition duration-300 shine hover-pulse">Register</a>
+                <a href="./login.php" class="px-4 py-3 bg-success hover:bg-success-dark text-white rounded-full text-center shadow-md transform hover:scale-105 transition duration-300 shine hover-pulse">Login</a>
+                <a href="./register.php" class="px-4 py-3 bg-primary hover:bg-primary-dark text-white rounded-full text-center shadow-md transform hover:scale-105 transition duration-300 shine hover-pulse">Register</a>
             </div>
         <?php endif; ?>
     </div>

@@ -5,17 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure PHP Authentication | Register</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Include Tailwind's dark mode support if needed
+        tailwind.config = {
+            darkMode: 'class',
+        };
+    </script>
     <style>
-      /* Custom gradient background for the whole page */
-      body {
-        background: linear-gradient(to right, #6EE7B7, #3B82F6);
-        font-family: 'Poppins', sans-serif;
-      }
+        /* Shine effect */
+        .shine {
+            background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 100%);
+            background-size: 200% 200%;
+            animation: shine 2s ease infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: 200% center;
+            }
+            100% {
+                background-position: 0 center;
+            }
+        }
+
+        /* Additional hover effect */
+        .hover-pulse:hover {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Animated background with image */
+        body {
+            background: url('photos/reg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#000000] via-[#0f0f00] to-yellow-950 text-white">
-    <div class="bg-black backdrop-blur-md p-8 rounded-xl shadow-2xl max-w-md w-full">
-        <h1 class="text-3xl font-bold text-center text-white mb-6">Register</h1>
+<body class="min-h-screen text-white flex items-center justify-center p-4">
+    <div class="w-full max-w-md p-6 bg-dark bg-opacity-90 rounded-2xl shadow-2xl backdrop-filter backdrop-blur-lg border border-secondary">
+        <!-- Header with Title -->
+        <div class="flex items-center justify-center mb-6">
+            <h1 class="text-4xl font-extrabold text-center text-warning shine">Register</h1>
+        </div>
 
         <?php if (isset($_GET['error'])): ?>
             <div class="bg-red-500 text-white p-3 rounded-lg mb-6">
@@ -40,7 +95,7 @@
             </div>
 
             <div>
-                <input type="submit" value="Register" class="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer transition duration-300">
+                <input type="submit" value="Register" class="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer transition duration-300 shine hover-pulse">
             </div>
         </form>
         <p class="text-sm text-center text-gray-400 mt-6">Already have an account? <a href="./login.php" class="text-blue-400 hover:text-blue-500 transition duration-200">Login here</a></p>

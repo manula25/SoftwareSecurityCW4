@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 
 // Set the session timeout duration (10 minutes)
@@ -23,7 +23,7 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) >
 $_SESSION['last_activity'] = time();
 
 // Check if the user is logged in
-if (!isset($_SESSION['user_id'])  || $_SESSION['role_id'] !== 2) {
+if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] !== 2) {
     header('Location: ../../login.php');
     exit();
 }
@@ -34,24 +34,82 @@ if (!isset($_SESSION['user_id'])  || $_SESSION['role_id'] !== 2) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>Secure PHP Authentication</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Include Tailwind's dark mode support if needed
+      tailwind.config = {
+        darkMode: 'class',
+      };
+    </script>
     <style>
+        /* Shine effect */
+        .shine {
+            background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 100%);
+            background-size: 200% 200%;
+            animation: shine 2s ease infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: 200% center;
+            }
+            100% {
+                background-position: 0 center;
+            }
+        }
+
+        /* Additional hover effect */
+        .hover-pulse:hover {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Animated background with image */
         body {
-            background: linear-gradient(to right, #3b82f6, #9333ea);
-            font-family: 'Poppins', sans-serif;
+            background: url('photos/hotel.png') no-repeat center center fixed;
+            background-size: cover;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-500 via-purple-500 to-pink-500 text-white">
-    <div class="bg-gray-900 p-8 rounded-xl shadow-2xl max-w-md w-full">
-        <h1 class="text-3xl font-bold text-center mb-6">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
+<body class="min-h-screen text-white flex items-center justify-center p-4">
+    <div class="w-full max-w-md p-6 bg-dark bg-opacity-90 rounded-2xl shadow-2xl backdrop-filter backdrop-blur-lg border border-secondary">
+        <!-- Header with Title -->
+        <div class="flex items-center justify-center mb-6">
+            <h1 class="text-4xl font-extrabold text-center text-warning shine">Secure PHP Authentication</h1>
+        </div>
+
+        <p class="text-lg text-center mb-4">Hello, <span class="font-semibold text-primary"><?php echo htmlspecialchars($_SESSION['username']); ?></span>!</p>
         <p class="text-center text-gray-300 mb-8">This is your dashboard. Here you can manage your account and settings.</p>
 
-        <div class="space-y-4">
-            <a href="./profile.php" class="block w-full py-3 bg-blue-600 text-white font-semibold rounded-lg text-center hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">View Profile</a>
-            <a href="./settings.php" class="block w-full py-3 bg-purple-600 text-white font-semibold rounded-lg text-center hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300">Account Settings</a>
-            <a href="./src/auth/logout.php" class="block w-full py-3 bg-red-600 text-white font-semibold rounded-lg text-center hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300">Logout</a>
+        <div class="mt-4 flex flex-col space-y-4">
+            <a href="./profile.php" class="block px-4 py-3 bg-success hover:bg-success-dark text-white rounded-full text-center shadow-md transform hover:scale-105 transition duration-300 shine hover-pulse">View Profile</a>
+            <a href="./settings.php" class="block px-4 py-3 bg-primary hover:bg-primary-dark text-white rounded-full text-center shadow-md transform hover:scale-105 transition duration-300 shine hover-pulse">Account Settings</a>
+            <a href="./src/auth/logout.php" class="block px-4 py-3 bg-danger hover:bg-danger-dark text-white rounded-full text-center shadow-md transform hover:scale-105 transition duration-300 hover-pulse">Logout</a>
         </div>
     </div>
 </body>
